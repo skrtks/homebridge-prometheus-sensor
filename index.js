@@ -25,11 +25,30 @@ class PrometheusSensorAccessory {
         case 'temperature':
           // create a new Temperature Sensor service
           this.service = new this.api.hap.Service.TemperatureSensor(this.name);
-          this.service.getCharacteristic(this.Characteristic.CurrentTemperature)
+          this.service.getCharacteristic(this.Characteristic.current)
             .onGet(this.handleCurrentTemperatureGet.bind(this));
           break;
-        case 'occupancy':
-          // create a new Occupancy Sensor service
+        case 'tvoc':
+          this.service = new this.api.hap.Service.OccupancySensor(this.name);
+          this.service.getCharacteristic(this.Characteristic.OccupancyDetected)
+            .onGet(this.handleOccupancyDetectedGet.bind(this));
+          break;
+        case 'nox':
+          this.service = new this.api.hap.Service.OccupancySensor(this.name);
+          this.service.getCharacteristic(this.Characteristic.OccupancyDetected)
+            .onGet(this.handleOccupancyDetectedGet.bind(this));
+          break;
+        case 'CO2':
+          this.service = new this.api.hap.Service.CarbonDioxideSensor(this.name);
+          this.service.getCharacteristic(this.Characteristic.CarbonDioxideDetected)
+            .onGet(this.handleCarbonDioxideDetectedGet.bind(this));
+          break;
+        case 'humidity':
+          this.service = new this.api.hap.Service.HumiditySensor(this.name);
+          this.service.getCharacteristic(this.Characteristic.CurrentRelativeHumidity)
+            .onGet(this.handleCurrentRelativeHumidityGet.bind(this));
+          break;
+        case 'pm25':
           this.service = new this.api.hap.Service.OccupancySensor(this.name);
           this.service.getCharacteristic(this.Characteristic.OccupancyDetected)
             .onGet(this.handleOccupancyDetectedGet.bind(this));
@@ -46,11 +65,47 @@ class PrometheusSensorAccessory {
     });
   }
 
-  handleOccupancyDetectedGet() {
-    this.log.debug('Triggered GET OccupancyDetected');
+  handleTvocGet() {
+    this.log.debug('Triggered GET TVOC');
 
     return this.queryPrometheus().then((result) => {
-      this.log.debug('OccupancyDetected is ' + result)
+      this.log.debug('TVOC is ' + result)
+      return parseInt(result);
+    });
+  }
+
+  handleNoxGet() {
+    this.log.debug('Triggered GET NOX');
+
+    return this.queryPrometheus().then((result) => {
+      this.log.debug('NOX is ' + result)
+      return parseInt(result);
+    });
+  }
+
+  handleCO2Get() {
+    this.log.debug('Triggered GET CO2');
+
+    return this.queryPrometheus().then((result) => {
+      this.log.debug('CO2 is ' + result)
+      return parseInt(result);
+    });
+  }
+
+  handleHumidityGet() {
+    this.log.debug('Triggered GET Humidity');
+
+    return this.queryPrometheus().then((result) => {
+      this.log.debug('Humidity is ' + result)
+      return parseInt(result);
+    });
+  }
+
+  handlePm25Get() {
+    this.log.debug('Triggered GET PM2.5');
+
+    return this.queryPrometheus().then((result) => {
+      this.log.debug('PM2.5 is ' + result)
       return parseInt(result);
     });
   }

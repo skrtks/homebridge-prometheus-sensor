@@ -29,7 +29,11 @@
         "default": "temperature",
         "oneOf": [
           { "title": "Temperature sensor", "enum": ["temperature"] },
-          { "title": "Occupancy sensor", "enum": ["occupancy"] }
+          { "title": "TVOC sensor", "enum": ["tvoc"] },
+          { "title": "NOX sensor", "enum": ["nox"] },
+          { "title": "CO2 sensor", "enum": ["CO2"] },
+          { "title": "Humidity sensor", "enum": ["humidity"] },
+          { "title": "PM25 sensor", "enum": ["pm25"] }
         ]
       }
     }
